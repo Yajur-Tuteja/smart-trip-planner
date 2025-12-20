@@ -7,6 +7,7 @@ import { formContext, userContext } from "./configs/context"
 import { useState } from "react"
 import ViewTrip from "./view-trip"
 import MyTrips from "./my-trips"
+import PixabaySearchExample from "./components/custom/Pixabay Search"
 
 
 const App = () => {
@@ -45,6 +46,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/my-trips",
         element: <MyTrips/>
+      },
+      {
+        path: "/pixabay-photo",
+        element: <PixabaySearchExample />
       }
     ]
   },

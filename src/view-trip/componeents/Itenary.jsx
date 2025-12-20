@@ -14,7 +14,6 @@ function Itenary({trip}) {
                     <h2 className='font-bold text-lg'>Day {item?.day}</h2>
                     {item?.places?.map((place, idx) => (
                         <div key={idx} className='my-3'>
-                            <h2 className='font-medium text-sm text-orange-600'>{place?.best_time_to_visit}</h2>
                             <PlaceCardItem place={place} />
                         </div>
                     ))}

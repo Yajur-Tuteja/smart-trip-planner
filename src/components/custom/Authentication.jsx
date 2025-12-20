@@ -30,7 +30,6 @@ function Authentication({openDialog, setOpenDialog}) {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
-                    "Content-Type": "application/json",
                 },
             });
         

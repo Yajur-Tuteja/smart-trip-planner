@@ -3,7 +3,7 @@ import SimpleAutocomplete from './Autocomplete'
 import { SelectBudget, SelectTravelPlan, AI_PROMPT } from '../configs/options'
 import { Button } from '../components/ui/button'
 import { formContext } from '../configs/context'
-import { generateResult } from '../configs/aiResult'
+import { fetchAIResult } from '../configs/aiResult'
 import {
   Dialog,
   DialogContent,
@@ -82,7 +82,7 @@ function CreateTrip() {
     .replaceAll('{traveler}',formData?.people)
     .replaceAll('{budget}',formData?.budget)
     console.log(FINAL_PROMPT);
-    const res = await generateResult(FINAL_PROMPT)
+    const res = await fetchAIResult(FINAL_PROMPT)
 
     saveTrip(res);
     

@@ -1,23 +1,19 @@
-const BASE_URL = 'https://places.googleapis.com/v1/places:searchText'
+// client/images.js
 
-async function searchPhotos(query) {
+export async function searchPhotos(query) {
     try {
-        const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=10`, { 
-                headers: {
-                    "Authorization": `Client-ID ${accessKey}`
-                }
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log(data);
-        return data.results; // array of photo objects
-    } catch(error) {
-        console.error("Failed to fetch user info:", error);
+      const response = await fetch(
+        `api/search?q=${encodeURIComponent(query)}`
+      );
+  
+      if (!response.ok) {
+        throw new Error(`Frontend Error: ${response.status}`);
+      }
+  
+      return await response;
+  
+    } catch (error) {
+      console.error("Failed to fetch images:", error);
     }
-}
+  }
+  
