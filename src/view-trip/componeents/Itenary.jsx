@@ -4,12 +4,12 @@ import PlaceCardItem from './PlaceCardItem'
 function Itenary({trip}) {
   return (
     <div>
-        <h2 className='font-bold text-xl mt-5 mb-3'>Itenary</h2>
+        <h2 className='font-bold text-xl mt-7 mb-3'>Itenary</h2>
         <div>
             {trip?.tripData?.travel_plan?.itinerary?.map((item, idx) => (
                 <div 
                     key={idx}
-                    className='my-10'
+                    className='my-3'
                 >
                     <h2 className='font-bold text-lg'>Day {item?.day}</h2>
                     {item?.places?.map((place, idx) => (

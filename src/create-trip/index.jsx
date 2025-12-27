@@ -4,19 +4,7 @@ import { SelectBudget, SelectTravelPlan, AI_PROMPT } from '../configs/options'
 import { Button } from '../components/ui/button'
 import { formContext } from '../configs/context'
 import { fetchAIResult } from '../configs/aiResult'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { FcGoogle } from "react-icons/fc";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useGoogleLogin } from '@react-oauth/google'
-import { setDoc, doc } from 'firebase/firestore'
-import { db } from '../configs/firebase-config'
 import { useNavigate } from 'react-router-dom'
 import Authentication from '../components/custom/Authentication'
 
@@ -31,30 +19,28 @@ function CreateTrip() {
 
   const navigate = useNavigate();
 
-  // const login = useGoogleLogin({
-  //   onSuccess:(codeResp) => {
-  //     console.log(codeResp);
-  //     getUserProfile(codeResp?.access_token)
-  //   },
-  //   onError:(error) => console.log(error)
-  // })
-
   console.log(formData);
 
   const saveTrip = async(tripData) => {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
       console.log(user);
-      const docId = Date.now().toString()
-      const docRef = await setDoc(doc(db, "AITrips", docId), {
-        userSelection: formData,
-        tripData: tripData,
-        userEmail: user?.email,
-        id: docId
+      
+      const response = await fetch("/api/trips", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userEmail: user?.email,
+          userSelection: formData,
+          tripData,
+        }),
       });
-      console.log("Document written with ID: ", docRef);
+      const docRef = await response.json();
+      
+      console.log("Document written with ID: ", docRef.data.id);
+      
       setLoading(false);
-      navigate('/view-trip/' + docId);
+      navigate('/view-trip/' + docRef.data.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -77,7 +63,7 @@ function CreateTrip() {
     setLoading(true);
 
     const FINAL_PROMPT = AI_PROMPT
-    .replaceAll('{location}',formData?.location)
+    .replaceAll('{location}',formData?.location?.address)
     .replaceAll('{totalDays}',formData?.days)
     .replaceAll('{traveler}',formData?.people)
     .replaceAll('{budget}',formData?.budget)
@@ -89,30 +75,6 @@ function CreateTrip() {
     console.log(res);
   }
   
-  
-  // const getUserProfile = async(accessToken) => {
-  //   try {
-  //     const response = await fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
-  //       method: "GET",
-  //       headers: {
-  //         "Authorization": `Bearer ${accessToken}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  
-  //     if (!response.ok) {
-  //       throw new Error(`Error: ${response.status} ${response.statusText}`);
-  //     }
-  
-  //     const data = await response.json();
-  //     console.log("User info:", data);
-  //     localStorage.setItem('user', JSON.stringify(data));
-  //     setOpenDialog(false);
-  //     return data;
-  //   } catch (error) {
-  //     console.error("Failed to fetch user info:", error);
-  //   }
-  // }
 
   return (
     <div className='sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10'>
@@ -240,26 +202,6 @@ function CreateTrip() {
           setOpenDialog = {setOpenDialog}
         />
 
-        {/* <Dialog open={openDialog}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogDescription>
-                <div className='flex items-center'>
-                  <img src = './logo.svg'></img>
-                  <span className='font-bold font-sans text-4xl text-violet-950 px-2'>SmartTrip</span>
-                </div>
-                <div>
-                  <h2 className='font-bold text-lg mt-7'>Sign In With Google</h2>
-                  <p>Sign in to the App with Google authentication securely</p>
-                  <Button onClick={login} className='w-full mt-5 py-2 flex gap-4 items-center'>
-                    <FcGoogle className='size-7' />
-                    Sign in with Google
-                  </Button>
-                </div>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog> */}
       </div>
     </div>
   )

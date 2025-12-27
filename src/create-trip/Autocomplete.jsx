@@ -3,8 +3,6 @@ import { GeocoderAutocomplete } from "@geoapify/geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 import { formContext } from "../configs/context";
 
-// const GEOAPIFY_API_KEY = "84fab0cdb39942e3a012f15a411fdf42";
-
 function SimpleAutocomplete() {
 
   const {formData, setFormData} = useContext(formContext);
@@ -34,7 +32,10 @@ function SimpleAutocomplete() {
         console.log(selected);
         setFormData((formData) => ({
             ...formData,
-            'location': location?.properties?.address_line1 + ", " + location?.properties?.address_line2
+            'location': {
+              address: location?.properties?.address_line1 + ", " + location?.properties?.address_line2,
+              properties: location?.properties
+            }
         }))
       });
     }

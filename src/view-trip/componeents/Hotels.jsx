@@ -27,11 +27,11 @@ function Hotels({trip}) {
                         target='_blank'
                     >
                         <div className='hover:scale-110 transition-all'>
-                            <img 
+                            {/* <img 
                                 src='/placeholder.jpg'
                                 className='rounded-lg' 
-                            />
-                            <div className='flex flex-col gap-2'>
+                            /> */}
+                            <div className='flex flex-col gap-2 border border-gray-400 rounded-xl p-5 mt-2'>
                                 <h2 className='font-medium'>{hotel?.hotel_name}</h2>
                                 <h2 className='text-xs text-gray-500'>📍 {hotel?.hotel_address}</h2>
                                 <h2 className='text-xs'>💰 {hotel?.price_per_night}</h2>

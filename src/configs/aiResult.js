@@ -9,6 +9,7 @@ export async function fetchAIResult(prompt) {
     });
 
     const data = await response.json();
+    console.log("AI Result:", data.result);
     return data.result;
   } catch (error) {
     console.error("Error fetching AI result:", error);

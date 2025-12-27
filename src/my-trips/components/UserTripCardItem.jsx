@@ -7,7 +7,7 @@ function UserTripCardItem({trip}) {
         <div>
             <img src='/placeholder.jpg' className='object-cover rounded-xl' />
             <div>
-                <h2 className='font-bold text-lg'>{trip?.userSelection?.location}</h2>
+                <h2 className='font-bold text-lg'>{trip?.userSelection?.location?.address}</h2>
                 <h2 className='text-sm text-gray-500'>{trip?.userSelection?.days} Days trip with {trip?.userSelection?.budget} budget with {trip?.userSelection?.people}</h2>
             </div>
         </div>

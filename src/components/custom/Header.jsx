@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import {useContext, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { Link } from 'react-router-dom'
 import {
@@ -13,8 +13,13 @@ import { userContext } from '../../configs/context'
 function Header() { 
 
   const {userData, setUserData} = useContext(userContext);
-
+  
   const[openDialog, setOpenDialog] = useState(false);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUserData(user);
+  },[]);
 
   return (
     <div className='shadow-sm p-3 px-5 flex items-center justify-between'>
@@ -35,7 +40,7 @@ function Header() {
               </Link>
               <Popover>
                 <PopoverTrigger className='cursor-pointer'>
-                  <img src={userData?.picture} className='h-[34px] w-[34px] rounded-full'></img>
+                  <img src={userData?.picture} className='h-[34px] w-[34px] rounded-full' referrerPolicy="no-referrer"></img>
                 </PopoverTrigger>
                 <PopoverContent className='cursor-pointer'>
                   <h2 onClick={() => {

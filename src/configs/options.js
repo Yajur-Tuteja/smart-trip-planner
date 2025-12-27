@@ -41,11 +41,12 @@ export const SelectTravelPlan = [{
     people: "5 to 10 People"
 }]
 
-export const AI_PROMPT = `You are an API. Output only valid JSON, no explanations. Generate Travel Plan for Location : {location}, for {totalDays} Days for {traveler} with a {budget} budget, give me Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and  suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates,Place address, ticket Pricing, Time travel each of the location for {totalDays} days with each day plan with best time to visit in JSON format.All the properties of generated json shhould be in snake case.
+export const AI_PROMPT = `You are an API. Output only valid JSON, no explanations. Generate Travel Plan for Location : {location}, for {totalDays} Days for {traveler} with a {budget} budget, give me Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and  suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates,Place address, ticket Pricing, Time travel each of the location for {totalDays} days with each day plan with best time to visit in JSON format.All the properties of generated json shhould be in snake case. Also get an image url for {location} from the internet that actually works.
 The structure of json should be like below:-
 {
     travel_plan:    
     {
+        "location_google_image_url": string,
         "location": string,
         "total_days": integer,
         "traveler": string,

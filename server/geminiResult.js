@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 
 
-dotenv.config({ path: ".env" })
+dotenv.config({ path: ".env.local" })
 
 // Initialize Google GenAI client
 const ai = new GoogleGenAI({
@@ -29,7 +29,7 @@ export async function generateResult(prompt) {
       console.log("Parsed JSON:", data);
       return data;
     } catch (e) {
-      console.error("Invalid JSON returned:", formattedText);
+      console.error("Invalid JSON returned:", e);
       return null;
     }
   } catch (error) {
