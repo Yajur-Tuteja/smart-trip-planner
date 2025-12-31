@@ -9,8 +9,10 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY, // backend-safe
 });
 
-export async function generateResult(prompt) {
+export async function generateResult(req, res) {
   try {
+    const { prompt } = req.body;
+
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
@@ -27,13 +29,34 @@ export async function generateResult(prompt) {
     try {
       const data = JSON.parse(formattedText);
       console.log("Parsed JSON:", data);
-      return data;
+
+      res.json({
+        success: true,
+        data: data,
+        error: null,
+      });
+
     } catch (e) {
       console.error("Invalid JSON returned:", e);
+
+      res.status(500).json({
+        success: false,
+        data: null,
+        error: "Invalid JSON returned from GenAI",
+      });
+
       return null;
     }
   } catch (error) {
+
     console.error("GenAI error:", error);
+
+    res.status(500).json({
+      success: false,
+      data: null,
+      error: "Internal server error",
+    });
+
     return null;
   }
 }

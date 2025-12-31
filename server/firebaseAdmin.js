@@ -1,17 +1,21 @@
 import admin from "firebase-admin";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import dotenv from "dotenv";
+
+
+dotenv.config({ path: ".env.local" })
+
+console.log("ENV:", process.env.FIREBASE_JSON);
+
 
 const serviceAccount = JSON.parse(
-    fs.readFileSync(
-        path.join(__dirname, "serviceAccountKey.json"),
-        "utf8"
-    )
+    Buffer.from(
+        process.env.FIREBASE_JSON,
+        "base64"
+    ).toString("utf8")
 );
+
+console.log("ENV:", serviceAccount);
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)

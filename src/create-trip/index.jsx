@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react'
 import SimpleAutocomplete from './Autocomplete'
 import { SelectBudget, SelectTravelPlan, AI_PROMPT } from '../configs/options'
 import { Button } from '../components/ui/button'
-import { formContext } from '../configs/context'
+import { FormContext } from '../configs/context'
 import { fetchAIResult } from '../configs/aiResult'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom'
 import Authentication from '../components/custom/Authentication'
 
 function CreateTrip() {
-  const {formData, setFormData} = useContext(formContext);
+  const {formData, setFormData} = useContext(FormContext);
 
   const [showValidationText, setShowValidationText] = useState(false);
 

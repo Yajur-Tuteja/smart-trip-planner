@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-export const formContext = createContext({});
-export const userContext = createContext({});
+export const FormContext = createContext({});
+export const UserContext = createContext({});
 

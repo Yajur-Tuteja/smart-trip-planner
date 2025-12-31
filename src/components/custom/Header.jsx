@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/popover"
 import Authentication from './Authentication'
 import { googleLogout } from '@react-oauth/google'
-import { userContext } from '../../configs/context'
+import { UserContext } from '../../configs/context'
 
 function Header() { 
 
-  const {userData, setUserData} = useContext(userContext);
-  
+  const {userData, setUserData} = useContext(UserContext);
+
   const[openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {

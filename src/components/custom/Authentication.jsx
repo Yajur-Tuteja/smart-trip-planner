@@ -10,11 +10,11 @@ import {
   } from "@/components/ui/dialog"
 import { Button } from '../ui/button';
 import { FcGoogle } from 'react-icons/fc';
-import { userContext } from '../../configs/context';
+import { UserContext } from '../../configs/context';
 
 function Authentication({openDialog, setOpenDialog}) {
 
-    const {userData, setUserData} = useContext(userContext);
+    const {userData, setUserData} = useContext(UserContext);
   
     const login = useGoogleLogin({
         onSuccess:(codeResp) => {

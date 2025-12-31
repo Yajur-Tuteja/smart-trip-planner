@@ -1,6 +1,5 @@
 // client/images.js
 
-
 export async function searchPhotos(query) {
   try {
     const response = await fetch(

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { GeocoderAutocomplete } from "@geoapify/geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
-import { formContext } from "../configs/context";
+import { FormContext } from "../configs/context";
 
 function SimpleAutocomplete() {
 
-  const {formData, setFormData} = useContext(formContext);
+  const {formData, setFormData} = useContext(FormContext);
 
   console.log(formData);
 
