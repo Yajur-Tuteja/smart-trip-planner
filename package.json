@@ -50,6 +50,10 @@
     "react-google-places-autocomplete": {
       "react": "^18.2.0",
       "react-dom": "^18.2.0"
+    },
+    "@floating-ui/react-dom": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
     }
   }
 }
