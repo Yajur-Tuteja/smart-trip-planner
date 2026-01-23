@@ -1,3 +1,3 @@
-import { generateResult } from "../server/geminiResult.js";
+import { createTrip } from "../server/fetchTrip.js";
 
-export default generateResult;
+export default createTrip
