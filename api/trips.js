@@ -1,3 +1,3 @@
-import { generateResult } from "../server/geminiResult";
+import { generateResult } from "../server/geminiResult.js";
 
 export default generateResult;

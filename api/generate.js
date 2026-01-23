@@ -1,3 +1,3 @@
-import { createTrip } from "../server/fetchTrip";
+import { createTrip } from "../server/fetchTrip.js";
 
 export default createTrip
