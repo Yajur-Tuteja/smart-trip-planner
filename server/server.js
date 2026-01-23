@@ -1,6 +1,6 @@
 import express from 'express';
 import { generateResult } from './geminiResult.js';
-import { createTrip } from './createTrip.js';
+import { createTrip } from './fetchTrip.js';
 
 const app = express();
 
