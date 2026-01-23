@@ -7,9 +7,9 @@ const app = express();
 app.use(express.json());
 
 
-app.post("/api/generate", generateResult);
+app.post("/generate", generateResult);
 
-app.post("/api/trips", createTrip);
+app.post("/trips", createTrip);
 
 
 if (!process.env.VERCEL) {
