@@ -8,7 +8,7 @@ function Hotels({trip}) {
     const [hotelImages, setHotelImages] = useState({});
 
     useEffect(() => {
-        trip?.tripData?.travel_plan?.hotels?.forEach(async (hotel, idx) => {
+        trip?.tripData?.AITripDetails?.travel_plan?.hotels?.forEach(async (hotel, idx) => {
             console.log("set image")
             const query = `Image of hotel building ${hotel?.hotel_name} ${hotel?.hotel_address} exact location`;
             const imageUrl = await searchPhotos(query);
@@ -20,7 +20,7 @@ function Hotels({trip}) {
         <div>
             <h2 className='font-bold text-xl mt-5 mb-3'>Hotel Recommendations</h2> {console.log(hotelImages)}
             <div className='grid md:grid-cols-3 gap-5 my-5'>
-                {trip?.tripData?.travel_plan?.hotels?.map((hotel, idx) => (
+                {trip?.tripData?.AITripDetails?.travel_plan?.hotels?.map((hotel, idx) => (
                     <Link
                         key={idx}
                         to = {'https://www.google.com/maps/search/?api=1&query='+hotel?.hotel_name +" "+hotel?.hotel_address}

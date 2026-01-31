@@ -6,7 +6,7 @@ function Itenary({trip}) {
     <div>
         <h2 className='font-bold text-xl mt-7 mb-3'>Itenary</h2>
         <div>
-            {trip?.tripData?.travel_plan?.itinerary?.map((item, idx) => (
+            {trip?.tripData?.AITripDetails?.travel_plan?.itinerary?.map((item, idx) => (
                 <div 
                     key={idx}
                     className='my-3'

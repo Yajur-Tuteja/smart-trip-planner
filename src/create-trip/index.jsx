@@ -4,6 +4,7 @@ import { SelectBudget, SelectTravelPlan, AI_PROMPT } from '../configs/options'
 import { Button } from '../components/ui/button'
 import { FormContext } from '../configs/context'
 import { fetchAIResult } from '../configs/aiResult'
+import { searchPhotos } from '../configs/placesApi'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom'
 import Authentication from '../components/custom/Authentication'
@@ -46,6 +47,11 @@ function CreateTrip() {
     }
   }
 
+  const fetchImage = async(location) => {
+    const imageUrl = await searchPhotos("Beautiful high resolution image of " + location.replace(/\b(province|district|state|region|governorate)\b/i, ""));
+    return imageUrl;
+  }
+
   const generateTrip = async() => {
     const user = localStorage.getItem('user');
 
@@ -68,11 +74,15 @@ function CreateTrip() {
     .replaceAll('{traveler}',formData?.people)
     .replaceAll('{budget}',formData?.budget)
     console.log(FINAL_PROMPT);
-    const res = await fetchAIResult(FINAL_PROMPT)
 
-    saveTrip(res);
-    
-    console.log(res);
+    const AITripDetails = await fetchAIResult(FINAL_PROMPT)
+    const tripImage = await fetchImage(formData?.location?.address);
+    const trip = {AITripDetails, heroImage: tripImage};
+
+    console.log("trip", trip);
+    saveTrip(trip);
+
+    console.log(AITripDetails);
   }
   
 

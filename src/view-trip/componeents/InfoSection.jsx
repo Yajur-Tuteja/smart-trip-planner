@@ -2,13 +2,13 @@ import React from 'react'
 import { Button } from '../../components/ui/button'
 import { FaShareAlt } from "react-icons/fa";
 
-function InfoSection({trip, img}) {
+function InfoSection({trip}) {
   return (
     <div>
-        <img src={img} className='rounded-xl h-[300px] w-full object-cover'></img>{console.log(img)}
+        <img src={trip?.tripData?.heroImage} className='rounded-xl h-75 w-full object-cover'></img>{console.log(trip?.tripData?.heroImage)}
         <div className='flex justify-between items-center'>
             <div className='my-5 flex flex-col gap-2'>
-                <h2 className='font-bold text-2xl'>{trip?.tripData?.travel_plan?.location}</h2>
+                <h2 className='font-bold text-2xl'>{trip?.tripData?.AITripDetails?.travel_plan?.location}</h2>
                 <div className='flex gap-5'>
                     <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500'>📅 {trip?.userSelection?.days} Days</h2>
                     <h2 className='p-1 px-3 bg-gray-200 rounded-full text-gray-500'>💰 {trip?.userSelection?.budget} Budget</h2>

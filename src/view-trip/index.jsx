@@ -12,7 +12,7 @@ function ViewTrip() {
 
   const [trip, setTrip] = useState({});
 
-  const [heroImage, setHeroImage] = useState("");
+  // const [heroImage, setHeroImage] = useState("");
 
   useEffect(() => {
     const getTripData = async() => {
@@ -29,23 +29,12 @@ function ViewTrip() {
     tripId && getTripData();
   },[tripId]);
 
-useEffect(() => {
-  const fetchImage = async() => {
-    if(trip?.tripData?.travel_plan?.location) {
-      const imageUrl = await searchPhotos("Beautiful high resolution image of " + trip?.userSelection?.location?.address.replace(/\b(province|district|state|region|governorate)\b/i, ""));
-
-      console.log("hero image url", imageUrl);
-      setHeroImage(imageUrl);
-    }
-  }
-  fetchImage();
-}, [trip]);
   
 
   return (
     <div className='p-10 md:px-10 lg:px-44 xl:px-56'>
         {/* {Basic info} */}
-        <InfoSection trip = {trip} img={heroImage}></InfoSection>
+        <InfoSection trip = {trip} img={trip?.tripData?.heroImage}></InfoSection>
         {/* {Hotels} */}
         <Hotels trip = {trip}></Hotels>
         {/* {Itenary} */}
