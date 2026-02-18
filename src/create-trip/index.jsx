@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import SimpleAutocomplete from './Autocomplete'
 import { SelectBudget, SelectTravelPlan, AI_PROMPT } from '../configs/options'
 import { Button } from '../components/ui/button'
-import { FormContext } from '../configs/context'
+import { FormContext, AuthDialogContext, UserContext } from '../configs/context'
 import { fetchAIResult } from '../configs/aiResult'
 import { searchPhotos } from '../configs/placesApi'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -12,9 +12,11 @@ import Authentication from '../components/custom/Authentication'
 function CreateTrip() {
   const {formData, setFormData} = useContext(FormContext);
 
-  const [showValidationText, setShowValidationText] = useState(false);
+  const {setOpenAuthDialog} = useContext(AuthDialogContext);
 
-  const [openDialog, setOpenDialog] = useState(false);
+  const {userData, setUserData} = useContext(UserContext);
+
+  const [showValidationText, setShowValidationText] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -24,14 +26,13 @@ function CreateTrip() {
 
   const saveTrip = async(tripData) => {
     try {
-      const user = JSON.parse(localStorage.getItem('user'));
-      console.log(user);
+      console.log("userData", userData);
       
       const response = await fetch("/api/trips", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userEmail: user?.email,
+          userId: userData.uid,
           userSelection: formData,
           tripData,
         }),
@@ -53,11 +54,10 @@ function CreateTrip() {
   }
 
   const generateTrip = async() => {
-    const user = localStorage.getItem('user');
 
-    if(!user) {
+    if(!userData) {
       console.log("dialog")
-      setOpenDialog(true);
+      setOpenAuthDialog(true);
       return
     }
 
@@ -106,7 +106,7 @@ function CreateTrip() {
             How many days are you planning your trip?
           </h2>
           <input 
-            className='w-full border border-solid border-black/30 leading-9 pl-[7px] text-[14px]' 
+            className='w-full border border-solid border-black/30 leading-9 pl-1.75 text-[14px]' 
             type="number" 
             value = {formData.days ?? ''}
             placeholder="Ex.3"
@@ -207,10 +207,7 @@ function CreateTrip() {
           { loading? <AiOutlineLoading3Quarters className='animate-spin' /> : 'Generate Trip' }
         </Button>
 
-        <Authentication 
-          openDialog = {openDialog}
-          setOpenDialog = {setOpenDialog}
-        />
+        <Authentication />
 
       </div>
     </div>

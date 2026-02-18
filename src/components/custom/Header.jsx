@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState } from 'react'
+import {useContext} from 'react'
 import { Button } from '../ui/button'
 import { Link } from 'react-router-dom'
 import {
@@ -7,19 +7,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import Authentication from './Authentication'
-import { googleLogout } from '@react-oauth/google'
-import { UserContext } from '../../configs/context'
+import { UserContext, AuthDialogContext } from '../../configs/context'
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../../configs/firebase-config';
+import { signOut } from 'firebase/auth'
 
 function Header() { 
 
   const {userData, setUserData} = useContext(UserContext);
+  const {setOpenAuthDialog} = useContext(AuthDialogContext);
 
-  const[openDialog, setOpenDialog] = useState(false);
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    setUserData(user);
-  },[]);
+  const navigate = useNavigate();
 
   return (
     <div className='shadow-sm p-3 px-5 flex items-center justify-between'>
@@ -40,13 +38,13 @@ function Header() {
               </Link>
               <Popover>
                 <PopoverTrigger className='cursor-pointer'>
-                  <img src={userData?.picture} className='h-[34px] w-[34px] rounded-full' referrerPolicy="no-referrer"></img>
+                  <img src={userData?.picture} className='h-8.5 w-8.5 rounded-full' referrerPolicy="no-referrer"></img>
                 </PopoverTrigger>
                 <PopoverContent className='cursor-pointer'>
-                  <h2 onClick={() => {
-                    googleLogout();
-                    localStorage.removeItem('user');
-                    setUserData(null)
+                  <h2 onClick={async () => {
+                    await signOut(auth);
+                    setUserData(null);
+                    navigate("/");
                   }}>Logout</h2>
                 </PopoverContent>
               </Popover>
@@ -55,14 +53,11 @@ function Header() {
               <Button 
                 className='cursor-pointer' 
                 onClick={() => {
-                  setOpenDialog(true)
+                  setOpenAuthDialog(true)
                 }}>
                   Sign In
               </Button>
-              <Authentication 
-                openDialog = {openDialog}
-                setOpenDialog = {setOpenDialog}
-              />
+              <Authentication />
             </div>
            }
         </div>

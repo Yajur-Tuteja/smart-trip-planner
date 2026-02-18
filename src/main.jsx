@@ -5,8 +5,6 @@ import App from './App.jsx'
 import Hero from './components/custom/Hero.jsx'
 import CreateTrip from './create-trip/index.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import { appRouter } from './App.jsx';
-import { GoogleOAuthProvider } from '@react-oauth/google'
 import ViewTrip from './view-trip/index.jsx';
 import MyTrips from './my-trips/index.jsx';
 
@@ -36,7 +34,5 @@ const appRouter = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}>
-    <RouterProvider router={appRouter} />
-  </GoogleOAuthProvider>
+  <RouterProvider router={appRouter} />
 )
