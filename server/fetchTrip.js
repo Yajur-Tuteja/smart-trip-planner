@@ -12,7 +12,7 @@ export async function createTrip(req, res) {
             });
         }
 
-        db.collection("users")
+        const trip = await db.collection("users")
             .doc(userId)
             .collection("trips")
             .add({
@@ -20,10 +20,11 @@ export async function createTrip(req, res) {
                 createdAt: new Date()
             });
 
+        console.log("Trip created with ID: ", trip);
 
         res.json({
             success: true,
-            data: { id: userId },
+            data: { id: trip.id },
             error: null,
         });
 

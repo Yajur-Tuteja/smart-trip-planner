@@ -39,7 +39,7 @@ function CreateTrip() {
       });
       const docRef = await response.json();
       
-      console.log("Document written with ID: ", docRef.data.id);
+      console.log("Document written with ID: ", docRef);
       
       setLoading(false);
       navigate('/view-trip/' + docRef.data.id);
